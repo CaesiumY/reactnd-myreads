@@ -42,6 +42,8 @@ export default class BookShelfList extends Component {
     return books.filter((book) => book.shelf === shelfTitle);
   };
 
+  updateShelfData = (book, shelfTitle) => {};
+
   componentDidMount() {
     this.getBooksData();
   }

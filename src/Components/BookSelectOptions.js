@@ -1,26 +1,36 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { update } from "../BooksAPI";
 
 export default class BookSelectOptions extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
+    getData: PropTypes.func.isRequired,
   };
 
   state = {
     selected: this.props.book.shelf,
   };
 
-  handleChange = (e) => {
+  handleChange = async (e) => {
     const { value } = e.target;
-    console.log(value);
+    await this.setSelectedShelf(value);
+    this.updateData();
+  };
+
+  setSelectedShelf = (value) => {
     this.setState((state) => ({
       selected: value,
     }));
   };
 
-  componentDidMount() {
-    console.log("shelftitle", this.props.book.shelf);
-  }
+  updateData = () => {
+    const { book, getData } = this.props;
+    const selectedShelf = this.state.selected;
+    update(book, selectedShelf).then(() => {
+      getData();
+    });
+  };
 
   render() {
     return (

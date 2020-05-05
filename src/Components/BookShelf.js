@@ -10,7 +10,7 @@ export default class BookShelf extends Component {
   };
 
   render() {
-    const { shelfTitle, BookList } = this.props;
+    const { shelfTitle, BookList, getData } = this.props;
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{shelfTitle}</h2>
@@ -18,7 +18,7 @@ export default class BookShelf extends Component {
           <ol className="books-grid">
             {BookList &&
               BookList.map((book, index) => (
-                <BookComponent key={index} book={book} />
+                <BookComponent key={index} book={book} getData={getData} />
               ))}
           </ol>
         </div>

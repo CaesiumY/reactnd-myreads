@@ -5,10 +5,11 @@ import BookSelectOptions from "./BookSelectOptions";
 export default class BookComponent extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
+    getData: PropTypes.func.isRequired,
   };
 
   render() {
-    const { book } = this.props;
+    const { book, getData } = this.props;
     return (
       <li>
         <div className="book">
@@ -21,7 +22,7 @@ export default class BookComponent extends Component {
                 backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
               }}
             />
-            <BookSelectOptions book={book} />
+            <BookSelectOptions getData={getData} book={book} />
           </div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">
