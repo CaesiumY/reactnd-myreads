@@ -6,6 +6,9 @@ import BookShelf from "../BookShelf";
 export default class BookShelfList extends Component {
   state = {
     books: {},
+    CurrentlyReading: [],
+    WantToRead: [],
+    ReadDone: [],
   };
 
   getBooksData = () => {
