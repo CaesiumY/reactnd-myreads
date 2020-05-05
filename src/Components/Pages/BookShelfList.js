@@ -54,11 +54,20 @@ export default class BookShelfList extends Component {
         <div className="list-books-content">
           <div>
             <BookShelf
+              getData={this.getBooksData}
               shelfTitle="Currently Reading"
               BookList={currentlyReading}
             />
-            <BookShelf shelfTitle="Want To Read" BookList={wantToRead} />
-            <BookShelf shelfTitle="Read Done" BookList={read} />
+            <BookShelf
+              getData={this.getBooksData}
+              shelfTitle="Want To Read"
+              BookList={wantToRead}
+            />
+            <BookShelf
+              getData={this.getBooksData}
+              shelfTitle="Read Done"
+              BookList={read}
+            />
           </div>
         </div>
         <div className="open-search">

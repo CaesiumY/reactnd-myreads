@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import BookSelectOptions from "./BookSelectOptions";
 
 export default class BookComponent extends Component {
   static propTypes = {
@@ -20,17 +21,7 @@ export default class BookComponent extends Component {
                 backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
               }}
             />
-            <div className="book-shelf-changer">
-              <select>
-                <option value="move" disabled>
-                  Move to...
-                </option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
-                <option value="none">None</option>
-              </select>
-            </div>
+            <BookSelectOptions />
           </div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">
