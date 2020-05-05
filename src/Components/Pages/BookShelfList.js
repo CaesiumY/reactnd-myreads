@@ -14,13 +14,15 @@ export default class BookShelfList extends Component {
   };
 
   getBooksData = () => {
-    getAll().then((books) => {
-      this.setState((state) => ({
-        books,
-      }));
-      console.log("BookShelfList -> getBooksData -> books", books);
-      this.categorizeBooks();
-    });
+    getAll()
+      .then((books) => {
+        this.setState((state) => ({
+          books,
+        }));
+        console.log("BookShelfList -> getBooksData -> books", books);
+        this.categorizeBooks();
+      })
+      .catch((e) => console.error(e));
   };
 
   categorizeBooks = () => {

@@ -21,7 +21,7 @@ export default class BookComponent extends Component {
                 backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
               }}
             />
-            <BookSelectOptions />
+            <BookSelectOptions book={book} />
           </div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">
