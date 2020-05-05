@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 export default class BookComponent extends Component {
-  static propTypes = {
-    prop: PropTypes,
-  };
+  //   static propTypes = {
+  //     prop: PropTypes,
+  //   };
 
   render() {
     return (

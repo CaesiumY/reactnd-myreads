@@ -6,20 +6,38 @@ import BookShelf from "../BookShelf";
 export default class BookShelfList extends Component {
   state = {
     books: {},
-    CurrentlyReading: [],
-    WantToRead: [],
-    ReadDone: [],
+    shelves: {
+      currentlyReading: [],
+      wantToRead: [],
+      read: [],
+    },
   };
 
   getBooksData = () => {
-    getAll()
-      .then((books) => {
-        this.setState((state) => ({
-          books,
-        }));
-        console.log("BookShelfList -> getBooksData -> books", books);
-      })
-      .catch((e) => console.log(e));
+    getAll().then((books) => {
+      this.setState((state) => ({
+        books,
+      }));
+      console.log("BookShelfList -> getBooksData -> books", books);
+      this.categorizeBooks();
+    });
+  };
+
+  categorizeBooks = () => {
+    const { books, shelves } = this.state;
+    const shelfTitles = Object.keys(shelves);
+    shelfTitles.map((title) => {
+      return this.setState((state) => ({
+        shelves: {
+          ...state.shelves,
+          [title]: this.filterBookShelf(books, title),
+        },
+      }));
+    });
+  };
+
+  filterBookShelf = (books, shelfTitle) => {
+    return books.filter((book) => book.shelf === shelfTitle);
   };
 
   componentDidMount() {
@@ -27,6 +45,7 @@ export default class BookShelfList extends Component {
   }
 
   render() {
+    const { currentlyReading, wantToRead, read } = this.state.shelves;
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -34,9 +53,12 @@ export default class BookShelfList extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf shelfTitle="Currently Reading" />
-            <BookShelf shelfTitle="Want To Read" />
-            <BookShelf shelfTitle="Read Done" />
+            <BookShelf
+              shelfTitle="Currently Reading"
+              BookList={currentlyReading}
+            />
+            <BookShelf shelfTitle="Want To Read" BookList={wantToRead} />
+            <BookShelf shelfTitle="Read Done" BookList={read} />
           </div>
         </div>
         <div className="open-search">
