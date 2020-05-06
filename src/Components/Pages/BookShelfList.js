@@ -11,6 +11,13 @@ export default class BookShelfList extends Component {
       wantToRead: [],
       read: [],
     },
+    isLoading: true,
+  };
+
+  onChangeLoading = (value) => {
+    this.setState((state) => ({
+      isLoading: value,
+    }));
   };
 
   getBooksData = () => {
@@ -19,6 +26,7 @@ export default class BookShelfList extends Component {
         this.setState((state) => ({
           books,
         }));
+        this.onChangeLoading(false);
         console.log("BookShelfList -> getBooksData -> books", books);
         this.categorizeBooks();
       })
@@ -55,25 +63,30 @@ export default class BookShelfList extends Component {
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
+        {this.state.isLoading ? <p className="loading">Loading...</p> : ""}
         <div className="list-books-content">
           <div>
             <BookShelf
               getData={this.getBooksData}
               shelfTitle="Currently Reading"
               BookList={currentlyReading}
+              onChangeLoading={this.onChangeLoading}
             />
             <BookShelf
               getData={this.getBooksData}
               shelfTitle="Want To Read"
               BookList={wantToRead}
+              onChangeLoading={this.onChangeLoading}
             />
             <BookShelf
               getData={this.getBooksData}
               shelfTitle="Read Done"
               BookList={read}
+              onChangeLoading={this.onChangeLoading}
             />
           </div>
         </div>
+
         <div className="open-search">
           <Link className="search-link" to="/search">
             Add a Book

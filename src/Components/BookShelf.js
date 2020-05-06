@@ -7,10 +7,11 @@ export default class BookShelf extends Component {
     shelfTitle: PropTypes.string.isRequired,
     BookList: PropTypes.array.isRequired,
     getData: PropTypes.func.isRequired,
+    onChangeLoading: PropTypes.func.isRequired,
   };
 
   render() {
-    const { shelfTitle, BookList, getData } = this.props;
+    const { shelfTitle, BookList, getData, onChangeLoading } = this.props;
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{shelfTitle}</h2>
@@ -18,7 +19,12 @@ export default class BookShelf extends Component {
           <ol className="books-grid">
             {BookList &&
               BookList.map((book, index) => (
-                <BookComponent key={index} book={book} getData={getData} />
+                <BookComponent
+                  key={index}
+                  book={book}
+                  getData={getData}
+                  onChangeLoading={onChangeLoading}
+                />
               ))}
           </ol>
         </div>

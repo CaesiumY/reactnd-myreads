@@ -6,10 +6,11 @@ export default class BookComponent extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
     getData: PropTypes.func.isRequired,
+    onChangeLoading: PropTypes.func.isRequired,
   };
 
   render() {
-    const { book, getData } = this.props;
+    const { book, getData, onChangeLoading } = this.props;
     return (
       <li>
         <div className="book">
@@ -22,7 +23,11 @@ export default class BookComponent extends Component {
                 backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
               }}
             />
-            <BookSelectOptions getData={getData} book={book} />
+            <BookSelectOptions
+              getData={getData}
+              book={book}
+              onChangeLoading={onChangeLoading}
+            />
           </div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">

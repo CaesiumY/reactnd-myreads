@@ -6,6 +6,7 @@ export default class BookSelectOptions extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
     getData: PropTypes.func.isRequired,
+    onChangeLoading: PropTypes.func.isRequired,
   };
 
   state = {
@@ -22,6 +23,7 @@ export default class BookSelectOptions extends Component {
     this.setState((state) => ({
       selected: value,
     }));
+    this.props.onChangeLoading(true);
   };
 
   updateData = () => {
