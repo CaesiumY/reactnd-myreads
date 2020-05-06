@@ -6,7 +6,7 @@ export default class BookComponent extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
     getData: PropTypes.func.isRequired,
-    onChangeLoading: PropTypes.func.isRequired,
+    onChangeLoading: PropTypes.func,
   };
 
   render() {

@@ -7,7 +7,7 @@ export default class BookShelf extends Component {
     shelfTitle: PropTypes.string.isRequired,
     BookList: PropTypes.array.isRequired,
     getData: PropTypes.func.isRequired,
-    onChangeLoading: PropTypes.func.isRequired,
+    onChangeLoading: PropTypes.func,
   };
 
   render() {
