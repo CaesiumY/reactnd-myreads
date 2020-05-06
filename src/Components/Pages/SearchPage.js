@@ -1,33 +1,60 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-
+import { search } from "../../BooksAPI";
 import BookComponent from "../BookComponent";
 
 export default class SearchPage extends Component {
   static propTypes = {};
 
+  state = {
+    query: "",
+    searchResult: [],
+  };
+
+  getSearchData = () => {
+    search(this.state.query).then((res) => {
+      console.log(res);
+      this.setState({ searchResult: res });
+    });
+  };
+
+  handleInputChange = (e) => {
+    const value = e.target.value;
+    this.setState({ query: value });
+  };
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    this.getSearchData();
+  };
+
   render() {
+    const { query, searchResult } = this.state;
     return (
       <div className="search-books">
         <div className="search-books-bar">
           <Link to="/" className="close-search">
             Close
           </Link>
-          <div className="search-books-input-wrapper">
-            {/*
-          NOTES: The search from BooksAPI is limited to a particular set of search terms.
-          You can find these search terms here:
-          https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-          However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-          you don't find a specific author or title. Every search is limited by search terms.
-        */}
-            <input type="text" placeholder="Search by title or author" />
-          </div>
+          <form
+            onSubmit={this.handleSubmit}
+            className="search-books-input-wrapper"
+          >
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              value={query}
+              onChange={this.handleInputChange}
+            />
+          </form>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid" />
+          <ol className="books-grid">
+            {/* {searchResult &&
+              searchResult.map((book, index) => (
+                <BookComponent book={book} key={index} />
+              ))} */}
+          </ol>
         </div>
       </div>
     );

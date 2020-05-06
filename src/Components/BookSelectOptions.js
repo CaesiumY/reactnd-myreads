@@ -5,7 +5,7 @@ import { update } from "../BooksAPI";
 export default class BookSelectOptions extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
-    getData: PropTypes.func.isRequired,
+    getData: PropTypes.func,
     onChangeLoading: PropTypes.func,
   };
 
