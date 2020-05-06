@@ -19,7 +19,6 @@ export default class SearchPage extends Component {
     const { onChangeLoading } = this.props;
     onChangeLoading(true);
     search(this.state.query).then((books) => {
-      console.log("books", books);
       this.setState({ result: this.onAddShelf(books) }, () => {
         onChangeLoading(false);
       });
@@ -28,7 +27,11 @@ export default class SearchPage extends Component {
 
   onAddShelf = (books) => {
     return books.map((book) => {
-      return { ...book, shelf: "none" };
+      return {
+        ...book,
+        shelf: "none",
+        authors: [book.authors ? book.authors : "unknown"],
+      };
     });
   };
 
