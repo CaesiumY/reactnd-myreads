@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { search } from "../../BooksAPI";
-import BookComponent from "../BookComponent";
 import BookShelf from "../BookShelf";
 
 export default class SearchPage extends Component {
@@ -17,9 +16,13 @@ export default class SearchPage extends Component {
   };
 
   getSearchData = () => {
+    const { onChangeLoading } = this.props;
+    onChangeLoading(true);
     search(this.state.query).then((books) => {
       console.log("books", books);
-      this.setState({ result: this.onAddShelf(books) });
+      this.setState({ result: this.onAddShelf(books) }, () => {
+        onChangeLoading(false);
+      });
     });
   };
 
@@ -63,16 +66,6 @@ export default class SearchPage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {/* {bookList && console.log("bookList", bookList)} */}
-            {/* {bookList &&
-              Object.values(bookList).map((book, index) => (
-                <BookComponent
-                  key={index}
-                  book={book}
-                  getData={getBooksData}
-                  onChangeLoading={onChangeLoading}
-                />
-              ))} */}
             <BookShelf
               getData={getBooksData}
               shelfTitle={
