@@ -41,7 +41,6 @@ export default class BookShelfList extends Component {
             />
           </div>
         </div>
-
         <div className="open-search">
           <Link className="search-link" to="/search">
             Add a Book
