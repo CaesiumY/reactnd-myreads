@@ -18,11 +18,16 @@ export default class SearchPage extends Component {
   getSearchData = () => {
     const { onChangeLoading } = this.props;
     onChangeLoading(true);
-    search(this.state.query).then((books) => {
-      this.setState({ result: this.onAddShelf(books) }, () => {
-        onChangeLoading(false);
+    search(this.state.query)
+      .then((books) => {
+        this.setState({ result: this.onAddShelf(books) }, () => {
+          onChangeLoading(false);
+        });
+      })
+      .catch((e) => {
+        alert("Wrong Keywords");
+        this.setState({ query: "" });
       });
-    });
   };
 
   onAddShelf = (books) => {
