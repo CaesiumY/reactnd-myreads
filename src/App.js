@@ -32,7 +32,7 @@ class BooksApp extends React.Component {
         console.log("BookShelfList -> getBooksData -> books", books);
         this.categorizeBooks();
       })
-      .catch((e) => console.error(e));
+      .catch((e) => alert(e));
   };
 
   categorizeBooks = () => {

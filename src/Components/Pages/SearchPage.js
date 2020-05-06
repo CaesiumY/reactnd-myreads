@@ -13,13 +13,19 @@ export default class SearchPage extends Component {
 
   state = {
     query: "",
-    searchResult: null,
+    result: [],
   };
 
   getSearchData = () => {
-    search(this.state.query).then((res) => {
-      console.log(typeof res);
-      this.setState({ searchResult: [...res] });
+    search(this.state.query).then((books) => {
+      console.log("books", books);
+      this.setState({ result: this.onAddShelf(books) });
+    });
+  };
+
+  onAddShelf = (books) => {
+    return books.map((book) => {
+      return { ...book, shelf: "none" };
     });
   };
 
@@ -36,7 +42,7 @@ export default class SearchPage extends Component {
   render() {
     const { query } = this.state;
     const { getBooksData, onChangeLoading } = this.props;
-    const bookList = this.state.searchResult;
+    const bookList = this.state.result;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -57,7 +63,7 @@ export default class SearchPage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {bookList && console.log(bookList)}
+            {/* {bookList && console.log("bookList", bookList)} */}
             {/* {bookList &&
               Object.values(bookList).map((book, index) => (
                 <BookComponent
@@ -69,7 +75,11 @@ export default class SearchPage extends Component {
               ))} */}
             <BookShelf
               getData={getBooksData}
-              shelfTitle="Search Results"
+              shelfTitle={
+                bookList.length !== 0
+                  ? `Search Result : ${query}`
+                  : "Search your Keywords"
+              }
               BookList={bookList || []}
               onChangeLoading={onChangeLoading}
             />
