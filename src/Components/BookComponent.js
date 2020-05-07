@@ -20,7 +20,9 @@ export default class BookComponent extends Component {
               style={{
                 width: 128,
                 height: 193,
-                backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
+                backgroundImage: book.imageLinks
+                  ? `url(${book.imageLinks.smallThumbnail})`
+                  : "",
               }}
             />
             <BookSelectOptions
