@@ -18,8 +18,9 @@ export default class SearchPage extends Component {
 
   getSearchData = () => {
     const { onChangeLoading } = this.props;
+    const query = this.state.query;
     onChangeLoading(true);
-    search(this.state.query)
+    search(query)
       .then((books) => {
         this.setState({ result: this.onAddShelf(books) }, () => {
           onChangeLoading(false);
@@ -53,9 +54,14 @@ export default class SearchPage extends Component {
     });
   };
 
+  resetSearchResult = () => {
+    this.setState({ result: [] });
+  };
+
   handleInputChange = (e) => {
     const value = e.target.value;
     this.setState({ query: value });
+    if (!value) this.resetSearchResult();
   };
 
   handleSubmit = async (e) => {
