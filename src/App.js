@@ -79,6 +79,7 @@ class BooksApp extends React.Component {
               mybooks={books}
               getBooksData={this.getBooksData}
               onChangeLoading={this.onChangeLoading}
+              isLoading={isLoading}
             />
           )}
         />

@@ -9,6 +9,7 @@ export default class SearchPage extends Component {
     getBooksData: PropTypes.func.isRequired,
     mybooks: PropTypes.array.isRequired,
     onChangeLoading: PropTypes.func,
+    isLoading: PropTypes.bool,
   };
 
   state = {
@@ -75,6 +76,8 @@ export default class SearchPage extends Component {
     const bookList = this.state.result;
     return (
       <div className="search-books">
+        {this.props.isLoading ? <p className="loading">Loading...</p> : ""}
+
         <div className="search-books-bar">
           <Link to="/" className="close-search">
             Close
