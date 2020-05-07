@@ -7,6 +7,7 @@ import BookShelf from "../BookShelf";
 export default class SearchPage extends Component {
   static propTypes = {
     getBooksData: PropTypes.func.isRequired,
+    mybooks: PropTypes.array.isRequired,
     onChangeLoading: PropTypes.func,
   };
 
@@ -31,11 +32,22 @@ export default class SearchPage extends Component {
       });
   };
 
+  getCurrentShelf = (searchedBook) => {
+    const homeBooks = this.props.mybooks;
+    let shelfTitle = "none";
+    homeBooks.forEach((book) => {
+      if (book.id === searchedBook.id) {
+        shelfTitle = book.shelf;
+      }
+    });
+    return shelfTitle;
+  };
+
   onAddShelf = (books) => {
     return books.map((book) => {
       return {
         ...book,
-        shelf: "none",
+        shelf: this.getCurrentShelf(book),
         authors: [book.authors ? book.authors : "unknown"],
       };
     });

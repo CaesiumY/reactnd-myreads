@@ -39,7 +39,10 @@ export default class BookSelectOptions extends Component {
   render() {
     return (
       <div className="book-shelf-changer">
-        <select value={this.state.selected || ""} onChange={this.handleChange}>
+        <select
+          value={this.state.selected || "none"}
+          onChange={this.handleChange}
+        >
           <option value="move" disabled>
             Move to...
           </option>

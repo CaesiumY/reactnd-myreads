@@ -7,7 +7,7 @@ import { getAll } from "./BooksAPI";
 
 class BooksApp extends React.Component {
   state = {
-    books: {},
+    books: [],
     shelves: {
       currentlyReading: [],
       wantToRead: [],
@@ -57,7 +57,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const { shelves, isLoading } = this.state;
+    const { shelves, isLoading, books } = this.state;
     return (
       <div className="app">
         <Route
@@ -76,6 +76,7 @@ class BooksApp extends React.Component {
           path="/search"
           render={() => (
             <SearchPage
+              mybooks={books}
               getBooksData={this.getBooksData}
               onChangeLoading={this.onChangeLoading}
             />
