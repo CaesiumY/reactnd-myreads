@@ -15,6 +15,7 @@ export default class SearchPage extends Component {
   state = {
     query: "",
     result: [],
+    error: "",
   };
 
   getSearchData = () => {
@@ -30,7 +31,9 @@ export default class SearchPage extends Component {
       })
       .catch((e) => {
         alert("Wrong Keywords");
-        this.setState({ query: "" });
+        this.setState({ query: "", result: [] }, () => {
+          onChangeLoading(false);
+        });
       });
   };
 
@@ -61,13 +64,9 @@ export default class SearchPage extends Component {
 
   handleInputChange = (e) => {
     const value = e.target.value;
-    this.setState({ query: value });
-    if (!value) this.resetSearchResult();
-  };
-
-  handleSubmit = async (e) => {
-    e.preventDefault();
-    this.getSearchData();
+    this.setState({ query: value }, () => {
+      value ? this.getSearchData() : this.resetSearchResult();
+    });
   };
 
   render() {
@@ -82,17 +81,14 @@ export default class SearchPage extends Component {
           <Link to="/" className="close-search">
             Close
           </Link>
-          <form
-            onSubmit={this.handleSubmit}
-            className="search-books-input-wrapper"
-          >
+          <div className="search-books-input-wrapper">
             <input
               type="text"
               placeholder="Search by title or author"
               value={query}
               onChange={this.handleInputChange}
             />
-          </form>
+          </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
