@@ -11,8 +11,14 @@ export default class BookShelfList extends Component {
     isLoading: PropTypes.bool,
   };
 
+  state = {
+    shelfTitleList: ["Currently Reading", "Want To Read", "Read Done"],
+  };
+
   render() {
     const { currentlyReading, wantToRead, read } = this.props.shelves;
+    const { shelfTitleList } = this.state;
+    const shelveList = [currentlyReading, wantToRead, read];
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -21,24 +27,15 @@ export default class BookShelfList extends Component {
         {this.props.isLoading ? <p className="loading">Loading...</p> : ""}
         <div className="list-books-content">
           <div>
-            <BookShelf
-              getData={this.props.getBooksData}
-              shelfTitle="Currently Reading"
-              BookList={currentlyReading}
-              onChangeLoading={this.props.onChangeLoading}
-            />
-            <BookShelf
-              getData={this.props.getBooksData}
-              shelfTitle="Want To Read"
-              BookList={wantToRead}
-              onChangeLoading={this.props.onChangeLoading}
-            />
-            <BookShelf
-              getData={this.props.getBooksData}
-              shelfTitle="Read Done"
-              BookList={read}
-              onChangeLoading={this.props.onChangeLoading}
-            />
+            {shelfTitleList.map((shelfTitle, index) => (
+              <BookShelf
+                key={shelfTitle}
+                getData={this.props.getBooksData}
+                shelfTitle={shelfTitle}
+                BookList={shelveList[index]}
+                onChangeLoading={this.props.onChangeLoading}
+              />
+            ))}
           </div>
         </div>
         <div className="open-search">
