@@ -29,7 +29,6 @@ class BooksApp extends React.Component {
           books,
         }));
         this.onChangeLoading(false);
-        console.log("BookShelfList -> getBooksData -> books", books);
         this.categorizeBooks();
       })
       .catch((e) => alert(e));

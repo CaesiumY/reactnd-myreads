@@ -26,7 +26,6 @@ export default class SearchPage extends Component {
       .then((books) => {
         this.setState({ result: this.onAddShelf(books) }, () => {
           onChangeLoading(false);
-          console.log(books);
         });
       })
       .catch((e) => {
